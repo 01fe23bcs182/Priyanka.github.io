@@ -22,6 +22,7 @@ section {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
   margin: 30px auto;
+  text-align: center; /* Center text content in the sections */
 }
 
 /* Header */
@@ -68,6 +69,7 @@ h2:hover {
 ul {
   list-style: none;
   padding: 0;
+  text-align: left; /* Align lists to the left */
 }
 
 ul li {
@@ -181,7 +183,7 @@ blockquote {
 .team-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: center; /* Center horizontally */
   gap: 1.5rem;
   margin-top: 2rem;
 }
