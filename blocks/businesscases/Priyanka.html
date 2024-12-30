@@ -1,168 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Business Cases</title>
-    <!-- Assuming the CSS file is in the same directory -->
-    <link rel="stylesheet" href="../businesscases.css">
-    <style>
-        /* Style the body to have some space and better readability */
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Business Cases Aligned with SDGs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* General Styles */
+    body {
+      font-family: serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f3ebeb;
+      color: #333;
+    }
 
-        /* Style for the navbar */
-        .navbar {
-            background-color: #333;
-            padding: 10px;
-        }
+    .container {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #dac8c8;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
 
-        .nav-list {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
+    h1.main {
+      text-align: center;
+      color: #ffffff;
+      background-color: #781b91;
+      border-radius: 10rem;
+      margin-bottom: 30px;
+      font-family: 'Roboto', sans-serif; 
+    }
 
-        .nav-list li {
-            display: inline;
-            margin: 0 15px;
-        }
+    .section {
+      margin-bottom: 40px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-        .nav-list a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.2rem;
-        }
+    .section:hover {
+      transform: scale(1.03);
+      box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+    }
 
-        .nav-list a:hover {
-            text-decoration: underline;
-        }
+    .section h2 {
+      text-align: center;
+      color: #34495e;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
 
-        /* Main heading style */
-        .buss {
-            text-align: center;
-            margin: 40px 0;
-            color: #333;
-        }
+    .strategy {
+      margin-bottom: 20px;
+      padding: 15px;
+      border: 1px solid #100f0f;
+      border-radius: 5px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-        /* Style for each member section */
-        .member-section {
-            background-color: #ffffff;
-            border: 2px solid #ccc;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s;
-        }
+    .strategy:hover {
+      transform: scale(1.02);
+      box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
+    }
 
-        .member-section:hover {
-            background-color: #f9f9f9;
-        }
+    .strategy h3 {
+      font-size: 18px;
+      color: #2980b9;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
 
-        .member-section h2 {
-            color: #4CAF50;
-        }
+    .strategy p {
+      line-height: 1.6;
+      margin: 5px 0;
+    }
 
-        .member-section p {
-            font-size: 1rem;
-            color: #333;
-        }
+    .strategy p strong {
+      color: #2c3e50;
+    }
 
-        .member-section a.detail {
-            display: inline-block;
-            margin-top: 10px;
-            font-size: 1rem;
-            color: #ffffff;
-            background-color: #4CAF50;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-        }
+    /* Section-Specific Styles */
+    .industrial .strategy {
+      background-color: #d1d1e8;
+    }
 
-        .member-section a.detail:hover {
-            background-color: #45a049;
-        }
+    .environmental .strategy {
+      background-color: #e8f5e9;
+    }
 
-        /* Style for the back button */
-        button {
-            background-color: #781b91;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1rem;
-            cursor: pointer;
-            border-radius: 5px;
-            margin: 20px auto;
-            display: block;
-        }
+    .education .strategy {
+      background-color: #fef6e4;
+    }
 
-        button:hover {
-            background-color: #9c28b7;
-        }
-    </style>
+    .industrial h2 {
+      color: #3915eb;
+    }
+
+    .environmental h2 {
+      color: #43a047;
+    }
+
+    .education h2 {
+      color: #f39c12;
+    }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      background-color: #781b91;
+      width: 100%;
+      z-index: 1000;
+      padding: 1rem 1rem;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      display: flex;
+      border-radius: 10px;
+      justify-content: center;
+      justify-content: space-between;
+    }
+
+    .nav-list {
+      list-style: none;
+      display: flex;
+      justify-content: space-around;
+      align-content: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-list li {
+      margin: 0;
+      color: #cdc0b3;
+    }
+
+    .nav-list a {
+      text-decoration: none;
+      color: #FB5235;
+      align-content: center;
+      padding: 1rem 1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .nav-list a:hover {
+      background-color: #d381e9;
+      transform: scale(1.02);  
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);  
+      transition: transform 0.2s, box-shadow 0.2s;
+      border-radius: 4px;
+    }
+    h2.code {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-color: #c642eb;
+    text-align: center;
+    font-style: oblique;
+    border-radius: 4rem;
+    display: inline-flex; 
+    padding: 0.7rem 1rem;
+   
+         
+}
+    h2.code:hover {
+  background-color: #d238e7; 
+  color: #212529; 
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+    .content {
+      padding: 2rem;
+      font-size: 1.2rem;
+      line-height: 1.6;
+    }
+  </style>
 </head>
-
 <body>
-    <nav class="navbar">
-        <ul class="nav-list">
-            <li><a href="../home/home.html">Home</a></li>
-            <li><a href="../../index.html">Project Introduction</a></li>
-            <li><a href="./teamlearning.html">Learning Reflections</a></li>
-        </ul>
-    </nav>
+  <nav class="navbar">
+    <ul class="nav-list">
+      <li><a style="color:rgb(255, 255, 255)" href="/Priyankacb.github.io/blocks/home/home.html">Home</a></li>
+      <li><a style="color:rgb(255, 255, 255)" href="/Priyankacb.github.io/index.html">Project Introduction</a></li>
+      <li><a style="color:rgb(255, 255, 255)" href="/Priyankacb.github.io/blocks/learningref/teamlearning.html">Learning Reflections</a></li>
+    </ul>
+  </nav>
+  <div class="container">
+    <button onclick="window.history.back();" style="background-color: #781b91; color: white; border: none; padding: 10px 20px; font-size: 1rem; cursor: pointer; border-radius: 5px; margin-bottom: 20px;">Back</button>
+    <h1 class="main">Business Cases with SDGs</h1>
+    <div class="Job Vacancy Database Management">
+      <h2>Job Vacancy Database Management</h2>
+      <div class="strategy">
+        <h3>SDG Target 8</h3>
+        <p><strong>Focus:</strong> Decent Work and Economic Growth</p>
+        <p><strong>SDG Indicator 8.10.2:</strong>Proportion of adults with an account at a financial institution or mobile service provider (relates to accessible platforms for job data).</p>
+      </div>
 
-    <h1 class="buss"><strong>Business Cases Identified by Each Team Member:</strong></h1>
-
-    <div class="member-section">
-        <h2>Preeti (423)</h2>
-        <p>
-            1. Students Record in School<br>
-            2. 24/7 Water Supply<br>
-            3. Delivery Management<br>
-        </p><br>
-        <a class="detail" href="../businesscases/Preeti.html">Details</a>
+    <div class="Unemployment Rate Calculation">
+      <h2>Unemployment Rate Calculation</h2>
+      <div class="strategy">
+        <h3>SDG Target 8</h3>
+        <p><strong>Focus:</strong>Decent Work and Economic Growth</p>
+        <p><strong>SDG Indicator 8.5.2:</strong>Unemployment rate, by sex, age, and persons with disabilities.</p>
+      </div>
     </div>
 
-    <div class="member-section">
-        <h2>Priyanka Badiger (425)</h2>
-        <p>
-            1. Employee Record<br>
-            2. Passenger Management<br>
-            3. Waste Management<br>
-        </p><br>
-        <a class="detail" href="../businesscases/Priyanka.html">Details</a>
-    </div>
-
-    <div class="member-section">
-        <h2>Sherya (427)</h2>
-        <p>
-            1. Library Management<br>
-            2. Time Calculation Between Any Two Places<br>
-            3. Public Safety Management<br>
-        </p><br>
-        <a class="detail" href="../businesscases/Shreya.html">Details</a>
-    </div>
-
-     <div class="member-section">
-        <h2>Aishwarya (429)</h2>
-        <p>
-            1. Library Management<br>
-            2. Time Calculation Between Any Two Places<br>
-            3. Public Safety Management<br>
-        </p><br>
-        <a class="detail" href="../businesscases/AIshwarya.html">Details</a>
-    </div>
-
-    <button onclick="window.history.back();">Back</button>
+    <div class="Economic Inequality Reporting">
+      <h2>Economic Inequality Reporting</h2>
+      <div class="strategy">
+        <h3>SDG Target 10</h3>
+        <p><strong>Focus:</strong>Reduced Inequalities</p>
+        <p><strong>SDG Indicator 10.2.1:</strong>  Proportion of people living below 50% of median income, by sex, age, and persons with disabilities.</p>
+      </div>
+  </div>
 
 </body>
-
 </html>
