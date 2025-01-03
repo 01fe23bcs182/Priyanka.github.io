@@ -131,227 +131,94 @@ int main() {
     return 0;}
 
 
-//UNEMPLOYMENT RATE CALCULATION USING DIJKSTRA'S ALGORITHM
 
+
+
+//ECONOMIC INEQUALITY REPORTING USING WARSHALL'S
 #include <iostream>
-#include <vector>
 #include <queue>
-#include <climits>
-using namespace std;
-
-struct Edge {
-    int to;
-    int weight;
-};
-
-void dijkstra(int nodes, vector<vector<Edge>> &graph, int start, vector<int> &dist) {
-    dist.assign(nodes, INT_MAX);
-    dist[start] = 0;
-
-    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
-    pq.push({0, start});
-
-    while (!pq.empty()) {
-        int currentDist = pq.top().first;
-        int currentNode = pq.top().second;
-        pq.pop();
-
-        if (currentDist > dist[currentNode]) continue;
-
-        for (const Edge &edge : graph[currentNode]) {
-            int newDist = currentDist + edge.weight;
-            if (newDist < dist[edge.to]) {
-                dist[edge.to] = newDist;
-                pq.push({newDist, edge.to});
-            }
-        }
-    }
-}
-
-int main() {
-    int nodes, edges, start;
-    cin >> nodes >> edges;
-
-    vector<vector<Edge>> graph(nodes);
-    for (int i = 0; i < edges; i++) {
-        int u, v, w;
-        cin >> u >> v >> w;
-        graph[u].push_back({v, w});
-        graph[v].push_back({u, w}); // Assuming undirected graph
-    }
-
-    cin >> start;
-
-    vector<int> dist;
-    dijkstra(nodes, graph, start, dist);
-
-    cout << "Shortest distances from node " << start << ":\n";
-    for (int i = 0; i < nodes; i++) {
-        cout << "To node " << i << ": " << (dist[i] == INT_MAX ? -1 : dist[i]) << endl;
-    }
-
-    return 0;
-}
-
-//UNEMPLOYMENT RATE CALCULATION USING BELLMANFORD ALGORITHM
-
-#include <iostream>
 #include <vector>
-#include <climits>
 using namespace std;
 
-struct Edge {
-    int from, to, weight;
-};
+#define INF 1000000  // Representing no direct connection
 
-bool bellmanFord(int nodes, int edges, vector<Edge> &graph, int start, vector<int> &dist) {
-    dist.assign(nodes, INT_MAX);
-    dist[start] = 0;
-
-    for (int i = 1; i < nodes; i++) {
-        for (const Edge &edge : graph) {
-            if (dist[edge.from] != INT_MAX && dist[edge.from] + edge.weight < dist[edge.to]) {
-                dist[edge.to] = dist[edge.from] + edge.weight;
-            }
-        }
-    }
-
-    // Check for negative-weight cycles
-    for (const Edge &edge : graph) {
-        if (dist[edge.from] != INT_MAX && dist[edge.from] + edge.weight < dist[edge.to]) {
-            return false; // Negative cycle detected
-        }
-    }
-
-    return true;
-}
-
-int main() {
-    int nodes, edges, start;
-    cin >> nodes >> edges;
-
-    vector<Edge> graph(edges);
-    for (int i = 0; i < edges; i++) {
-        cin >> graph[i].from >> graph[i].to >> graph[i].weight;
-    }
-
-    cin >> start;
-
-    vector<int> dist;
-    if (bellmanFord(nodes, edges, graph, start, dist)) {
-        cout << "Shortest distances from node " << start << ":\n";
-        for (int i = 0; i < nodes; i++) {
-            cout << "To node " << i << ": " << (dist[i] == INT_MAX ? -1 : dist[i]) << endl;
-        }
-    } else {
-        cout << "Negative-weight cycle detected.\n";
-    }
-
-    return 0;
-}
-
-//ECONOMIC INEQUALITY REPORTING USING BFS
-#include <iostream>
-#include <vector>
-#include <queue>
-using namespace std;
-
-// Function to perform BFS to explore economic inequality relationships
-void BFS(const vector<vector<int>>& graph, int start, vector<bool>& visited) {
-    queue<int> q;
-    q.push(start);
-    visited[start] = true;
-
-    while (!q.empty()) {
-        int current = q.front();
-        q.pop();
-        cout << current << " ";
-
-        for (int i = 0; i < graph.size(); ++i) {
-            if (graph[current][i] == 1 && !visited[i]) {
-                q.push(i);
-                visited[i] = true;
+// Warshall's Algorithm for finding the transitive closure
+void warshallAlgorithm(int** graph, int n) {
+    for (int k = 0; k < n; k++) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (graph[i][k] != INF && graph[k][j] != INF) {
+                    graph[i][j] = min(graph[i][j], graph[i][k] + graph[k][j]);
+                }
             }
         }
     }
 }
 
-// Function to report economic inequality relationships
-void economicInequalityReport(const vector<vector<int>>& graph) {
-    int n = graph.size();
+// BFS for exploring economic connections (e.g., job availability)
+void bfs(int** graph, int n, int start) {
     vector<bool> visited(n, false);
+    queue<int> q;
+    visited[start] = true;
+    q.push(start);
 
-    cout << "Economic Inequality Relationships Report:\n";
-    for (int i = 0; i < n; ++i) {
-        if (!visited[i]) {
-            cout << "Group connected to region " << i << ": ";
-            BFS(graph, i, visited);
-            cout << endl;
+    cout << "BFS Traversal (Job Availability from Region " << start << "): ";
+    while (!q.empty()) {
+        int region = q.front();
+        q.pop();
+        cout << region << " ";
+
+        for (int i = 0; i < n; i++) {
+            if (!visited[i] && graph[region][i] != INF) {
+                visited[i] = true;
+                q.push(i);
+            }
         }
     }
+    cout << endl;
 }
 
 int main() {
     int n;
-    cout << "Enter the number of regions or groups: ";
+    cout << "Enter the number of regions: ";
     cin >> n;
 
-    vector<vector<int>> graph(n, vector<int>(n));
-    cout << "Enter the adjacency matrix (1 for direct inequality relationship, 0 otherwise):\n";
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
+    // Dynamically allocate the graph
+    int** graph = new int*[n];
+    for (int i = 0; i < n; i++) {
+        graph[i] = new int[n];
+    }
+
+    cout << "Enter the adjacency matrix (use " << INF << " for no direct connection):" << endl;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
             cin >> graph[i][j];
         }
     }
 
-    economicInequalityReport(graph);
+    // Apply Warshall's Algorithm
+    warshallAlgorithm(graph, n);
 
-    return 0;
-}
-
-//ECONOMIC INEQUALITY REPORTING USING WARSHALL'S
-
-#include <iostream>
-#include <vector>
-using namespace std;
-
-#define INF 1e9 // Represents no direct connection
-
-// Warshall's Algorithm to compute the transitive closure (reachability matrix)
-void warshallAlgorithm(vector<vector<int>>& graph, int n) {
-    vector<vector<int>> reach = graph;
-
-    for (int k = 0; k < n; ++k) {
-        for (int i = 0; i < n; ++i) {
-            for (int j = 0; j < n; ++j) {
-                reach[i][j] = reach[i][j] || (reach[i][k] && reach[k][j]);
-            }
-        }
-    }
-
-    cout << "Economic Inequality Reachability Matrix:\n";
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            cout << reach[i][j] << " ";
+    cout << "\nTransitive Closure (Economic Connections Matrix):" << endl;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (graph[i][j] == INF) cout << "INF ";
+            else cout << graph[i][j] << " ";
         }
         cout << endl;
     }
-}
 
-int main() {
-    int n;
-    cout << "Enter the number of regions or groups: ";
-    cin >> n;
+    // BFS Traversal from a specific region
+    int startRegion;
+    cout << "Enter the starting region for BFS: ";
+    cin >> startRegion;
+    bfs(graph, n, startRegion);
 
-    vector<vector<int>> graph(n, vector<int>(n));
-    cout << "Enter the adjacency matrix (1 for direct inequality relationship, 0 otherwise):\n";
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            cin >> graph[i][j];
-        }
+    // Free dynamically allocated memory
+    for (int i = 0; i < n; i++) {
+        delete[] graph[i];
     }
-
-    warshallAlgorithm(graph, n);
+    delete[] graph;
 
     return 0;
 }
